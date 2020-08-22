@@ -1,0 +1,49 @@
+* PAM
+/etc/security/limits.conf
+/etc/pam.d/login
+/etc/nologin
+/etc/pam.d/su
+* LDAP
+https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-2.4.51.tgz
+/etc/OpenLDAP/ldap.conf
+/etc/OpenLDAP/slapd.conf
+/etc/rc.d/init.d/ldap start
+/usr/sbin/slurpd
+/usr/bin/ldapadd
+/usr/bin/ldapsearch
+/usr/bin/ldapmodify
+/usr/bin/ldappasswd
+* INIT
+/sbin/grub-md5-crypt
+/etc/grub.conf
+/etc/inittab
+/etc/rc.d/rc.sysinit
+/etc/rc.d/rcX.d/[KS]
+/etc/rc.local
+/bin/bash
+* DNS
+/etc/hosts
+/etc/host.conf
+/etc/resolv.conf
+
+/etc/named.conf
+/etc/named/named.ca
+/var/named/localhost.zone
+/var/named/named.local
+/var/named/name2ip.conf
+/var/named/ip2name.conf
+
+** named.conf 文件的配置
+acl 
+control
+include
+key
+logging
+opitons
+server
+zone
+
+nslook dig named-checkzone host named-checkconf dlint host
+
+TSIG  SIG0  DNSSEC
+
