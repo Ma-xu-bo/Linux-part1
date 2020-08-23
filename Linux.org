@@ -47,3 +47,11 @@ nslook dig named-checkzone host named-checkconf dlint host
 
 TSIG  SIG0  DNSSEC
 
+* Web
+http://www.apache.org/
+/etc/httpd/ (ServerRoot)
+/etc/logs (Customlog ,Errorlog)
+/var/www/cgi-bin (ScripAlias
+/var/www/html (DocumentRoot)
+/etc/httpd/httpd.conf
+$APACHE_HOME/conf/extra
