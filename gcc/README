@@ -1,0 +1,5 @@
+gcc -E hello.c -o hello.cpp
+gcc -c hello.cpp -o hello.o
+gcc hello.o hello
+(Linking)
+./hello
