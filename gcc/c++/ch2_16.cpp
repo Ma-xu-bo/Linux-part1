@@ -21,5 +21,4 @@ int main()
   cout<<"再次输出栈中的元素："<<endl;
   s.prt_linked_Stack();
   return 0;
-    
 }

@@ -34,7 +34,7 @@ void linked_Stack<T>::prt_linked_Stack()
   if (p==NULL) { cout<<"空栈！"<<endl; return;}
   do { cout<<p->d<<endl;
     p=p->next;}
-  while (p!=NULL);//biao ji
+  while (p!=NULL);
   return;
 }
 template<class T>
