@@ -31,7 +31,7 @@ void linked_Queue<T>::prt_linked_Queue()
   node<T> * p;
   p = front;
   if (p = NULL) { cout<<"空队列！"<<endl; return; }
-  do {
+  else {                         //do -> else
     cout<<p->d<<endl;
     p=p->next;
   } while (p!=NULL);
@@ -50,7 +50,7 @@ void linked_Queue<T>::ins_linked_Queue(T x)
   p = new node<T>;
   p->d = x;
   p->next = NULL;
-  if (rear = NULL)
+  if (rear == NULL)
     front=p;
   else
     rear->next=p;
