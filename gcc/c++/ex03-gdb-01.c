@@ -5,10 +5,12 @@
 int main(void){
   int fd = -1;
   char filename[] = "test.txt";
-  fd = open(filename,O_RDWR);
+  fd = open(filename,O_RDWR|O_CREAT|O_EXCL,S_IRWXU);
   if (-1 == fd)
     {
-      printf("Open file %s failure!, fd:%d\n",filename,fd );
+      printf("File %s exist!,report it",filename );
+      fd = open(filename,O_RDWR);
+      printf("fd:%d\n",fd);
     }
   else {
     printf("Open file %s success,fd:%d\n",filename,fd);
