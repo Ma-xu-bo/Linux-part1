@@ -1,5 +1,0 @@
-tcp_client.c:7:21: fatal error: Linux/in.h: No such file or directory
- #include<Linux/in.h>
-                     ^
-compilation terminated.
-make: *** [tcp_client.o] Error 1
