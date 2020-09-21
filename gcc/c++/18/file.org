@@ -1,0 +1,178 @@
+#+STARTUP:OVERVIEW
+* Makefil
+#+BEGIN_SRC 
+CC = gcc
+CFLAGS = -Wall -g
+LIBS = -lpthread
+RM = rm -f
+OBJS = shttpd_parameters.o shttpd.o shttpd_worker.o shttpd_uri.o shttpd_request.o shttpd_method_o \
+shttpd_mine.o shttpd_error.o
+all:$(OBJS)
+$(CC) -o $(TARGET) $(OBJS) $(LIBS)
+clean:
+$(RM) $(TARGET) $(OBJS)
+#+END_SRC
+* shttpd.c
+struct conf_opts conf_para 
+struct vec _shttpd_methods[]
+static void sig_init(int num)
+static void sig_pipe(int num)
+int do_listen()
+int l_main()
+int main(int argc, char *argv[])
+* shttpd.h
+#ifndef __SHTTPD_H__
+#define __SHTTPD_H__
+#include<stdio.h>
+#include<>
+#include<>
+#include<>
+#include<>
+#include<>
+#include<>
+#include<>
+#include<>
+#include<>
+#include<>
+#include<>
+#include<>
+#include<>
+#include<>
+
+enum{WORKER_INITED,WORKER_RUNNING,WORKER_DETACHING,WORKER_IDEL};
+struct conf_opts{};
+typedef enum SHTTPD_METHOD_TYPE{}SHTTPD_METHOD_TYPE;
+enum{HDR_DATE, HDR_INT, HDR_STRING};
+typedef struct shttpd_method{}shttpd_method;
+typedef struct vec{}vec;
+#define OFFSET(x) offsetof(struct headers, x)
+union variant {};
+#define URI_MAX 16384 
+struct headers {};
+struct cgi{};
+struct worker_ctl;
+struct worker_opts{};
+struct worker_conn;
+struct conn_request{};
+struct conn_response{};
+struct worker_conn{};
+struct mine_type{};
+void Para_Init(int argc, char argv[]);
+int Request_Parse(struct worker_ctl *wctl);
+int Request_Handle(struct worker_ctl *wctl);
+int Worker_ScheduleRun();
+int Worker_ScheduleStop();
+void Method_Do(struct worker_ctl *wctl);
+void uri_parse(char *src, int len);
+struct mine_type* Mine_Type(char *uri, int len, struct worker_ctl
+*wctl);
+#define DBGPRINT printf
+#endif /*__SHTTPD_H__*/
+* shttpd_cgi.h
+#include<shttpd.h>
+int GenerateDirFiles(struct worker_ctl *wctl)
+#define CGISTR "/cgi-bin/"
+#define ARGNUM 16
+#define READIN 0
+#define WRITEOUT 1
+int cgiHandler(struct worker_ctl *wctl)
+* shttpd_error.c
+#include<shttpd.h>
+enum{ERROR301, ERROR302, ERROR303, ERROR304, ERROR305, ERROR307,
+ERROR400, ERROR401, ERROR402, ERROR403, ERROR404, ERROR405, ERROR406,
+};
+struct error_mine{};
+struct error_mine _error_http[]={
+{ERROR301, "Error: 301", "永久移动", 301},
+{ERROR302, "Error: 302", "创建", 302},
+{ERROR303, "Error: 303", "观察别的部分", 303},};
+void Error_400(struct worker_ctl* wctl)
+void Error_403(struct worker_ctl* wctl)
+void Error_404(struct worker_ctl* wctl)
+void Error_505(struct worker_ctl* wctl)
+int GenerateErrorMine(struct worker_ctl *wctl)
+* shttpd_method.c
+#include<shttpd.h>
+static int Method_DoGet(struct worker_ctl *wctl)
+static int Method_DoHead(struct worker_ctl *wctl)
+static int Method_DoPut(struct worker_ctl *wctl)
+static int Method_DoDelete(struct worker_ctl *wctl)
+static int Method_DoCGI(struct worker_ctl *wctl)
+static int Method_DoList(struct worker_ctl *wctl)
+void Method_Do(struct worker_ctl *wctl)
+* shttpd_mine.c
+#include<shttpd.h>
+enum{ MINET_HTML,MINET_HTM,MINET_TXT,MINET_CSS};
+struct mine_type built_mime_types[] = {
+{"html",MINET_HTML,4,"text/html"},
+{"htm",MINET_HTM,3,"text/html"},
+{"txt",MINET_TXT,3,"text/plain"},
+{"css",MINET_CSS,3,"text/css"}
+}
+struct mine_type*Mine_Type(char *uri,int len, struct worker_ctl *wctl)
+
+* shttpd_parameters.c
+#include<shttpd.h>
+static char *l_opt_arg;
+static char *shortopts = "c:d:f:ho:l:m:t:";
+struct option{
+char *name;
+int has_arg;
+int *flag;
+int val;};
+static struct option longopts[] = {
+{"CGIRoot", required_argument, NULL, 'c'},
+{"ConfigFile", required_argument, NULL, 'f'},
+{"Help",no_argument, NULL, 'h'},
+{0, 0, 0, 0},
+};
+extern struct conf_opts conf_para;
+static void display_usage(void){};
+static void display_para(){};
+static int conf_readline(int fd, char *buff, int len)
+static int Para_CmdParse(int argc, char *argv[])
+void Para_File_Parse(char *file)
+void Para_Init(int argc, char *argv[])
+* shttpd_request.c
+#include<shttpd.h>
+extern void Error_400(struct worker_ctl* wctl)
+extern void Error_403(struct worker_ctl* wxtl)
+extern void Error_404(struct worker_ctl* wxtl)
+extern void Error_405(struct worker_ctl* wxtl)
+static struct http_header http_headers[] = {
+{8,HDR_INT,OFFSET(status),"Status: "},
+{7,HDR_STRING,OFFSET(range),"Range: "},
+{12,HDR_STRING,OFFSET(connection),"Connection: "},
+{19,HDR_STRING,OFFSET(transenc),"Transfer-Encoding: "},
+{0,HDR_INT,0,NULL}
+};
+extern struct vec _shttpd_method[];
+struct conf_opts conf_para;
+static int montoi(char *s)
+static time_t date_to_epoch(char *s)
+void Request_HeaderParse(char *s, int len, struct headers *parsed)
+#define JUMPOVER_CHAR(p,over) do{for(;*p==over;p++);}while(1);
+#define JUMPTO_CHAR(p,to) do{for(;p!=to;p++);}while(0);
+int Request_Parse(struct worker_ctl *wctl)
+int Request_Handle(struct worker_ctl *wctl)
+
+* shttpd_uri.c
+#include<shttpd.h>
+static void remove_double_dots(char *s)
+static int uri_decode(char *src, int src_len, char *dst, int dst_len)
+void uri_parse(char *src, int len)
+* shttpd_worker.c
+#include<shttpd.h>
+static int workersum = 0;
+static struct worker_ctl *wctls = NULL;
+extern struct conf_opts conf_para;
+pthread_mutex_t thread_init = PTHREAD_MUTEX_INITIALIZER;
+static int WORKER_ISSTATUS(int status);
+static void Worker_Init();
+static int Worker_Add(int i);
+static void Worker_Delete(int i);
+static void Worker_Destory();
+static void do_work(struct worker_ctl *wctl)
+static void *worker(void *arg)
+int Worker_ScheduleRun(int ss)
+int Worker_ScheduleStop()
